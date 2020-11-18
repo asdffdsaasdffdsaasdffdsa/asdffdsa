@@ -16,25 +16,25 @@ trap "losetup -d ${loop}" EXIT
 #
 # /boot is the VFAT partition of the Raspbian image with config.txt and cmdline.txt
 #
-mkdir /boot
-mount ${loop}p1 /boot
+mkdir /piboot
+mount ${loop}p1 /piboot
 
 # enable SSH
-touch /boot/ssh
+touch /piboot/ssh
 
 # configure WiFi
-#cp /src/wpa_supplicant.conf /boot/
+#cp /src/wpa_supplicant.conf /piboot/
 
 # disable bluetooth
-echo 'dtoverlay=pi3-disable-bt' >> /boot/config.txt 
+echo 'dtoverlay=pi3-disable-bt' >> /piboot/config.txt 
 
 # enable USB OTG ethernet dongle emulation
 # you could also set static MAC addresses for g_ether in cmdline.txt if needed:
 #  g_ether.host_addr=00:11:22:33:44:55 g_ether.dev_addr=66:77:88:99:aa:bb
-echo 'dtoverlay=dwc2' >> /boot/config.txt
-sed -i -e 's/ rootwait / rootwait modules-load=dwc2,g_ether /' /boot/cmdline.txt
+echo 'dtoverlay=dwc2' >> /piboot/config.txt
+sed -i -e 's/ rootwait / rootwait modules-load=dwc2,g_ether /' /piboot/cmdline.txt
 
-umount /boot
+umount /piboot
 
 #
 # The root ext4 filesystem for Raspbian is the second partition

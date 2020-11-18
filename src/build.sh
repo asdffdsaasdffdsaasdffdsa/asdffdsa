@@ -3,7 +3,7 @@
 set -e
 set -x
 
-wget https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-08-24/2020-08-20-raspios-buster-armhf-lite.zip
+wget -q https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-08-24/2020-08-20-raspios-buster-armhf-lite.zip
 
 sha256sum *.zip | grep -q 4522df4a29f9aac4b0166fbfee9f599dab55a997c855702bfe35329c13334668
 

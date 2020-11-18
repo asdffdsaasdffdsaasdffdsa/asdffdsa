@@ -3,10 +3,6 @@
 set -e
 set -x
 
-pwd
-ls src
-exit
-
 wget https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-08-24/2020-08-20-raspios-buster-armhf-lite.zip
 
 sha256sum *.zip | grep -q 4522df4a29f9aac4b0166fbfee9f599dab55a997c855702bfe35329c13334668
@@ -27,7 +23,7 @@ mount ${loop}p1 /piboot
 touch /piboot/ssh
 
 # configure WiFi
-#cp /src/wpa_supplicant.conf /piboot/
+#cp src/wpa_supplicant.conf /piboot/
 
 # disable bluetooth
 echo 'dtoverlay=pi3-disable-bt' >> /piboot/config.txt 
@@ -50,12 +46,12 @@ sed -i -e 's/pi:[^:]*/pi:*/' /mnt/etc/shadow
 
 # enable ssh public key access to the default 'pi' user
 install -o 1000 -m 700 -d /mnt/home/pi/.ssh
-install -o 1000 -m 700 /src/authorized_keys /mnt/home/pi/.ssh/
+install -o 1000 -m 700 src/authorized_keys /mnt/home/pi/.ssh/
 
 # set the hostname on boot based on hardware info
-install -o 0 -m 755 /src/mac-hostname.sh /mnt/etc/
-install -o 0 -m 755 /src/mac-hostname.service /mnt/etc/systemd/system/
+install -o 0 -m 755 src/mac-hostname.sh /mnt/etc/
+install -o 0 -m 755 src/mac-hostname.service /mnt/etc/systemd/system/
 install -d -o 0 -m 755 /mnt/etc/systemd/system/network.target.wants
 ln -s /mnt/etc/systemd/system/mac-hostname.service /mnt/etc/systemd/system/network.target.wants/mac-hostname.service
 
-umount /mnt 
+umount /mnt

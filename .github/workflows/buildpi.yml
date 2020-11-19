@@ -41,7 +41,7 @@ jobs:
       - name: Create Asset
         id: create_asset
         run: |
-          ln *.img my-pi-image.img
+          sudo ln *.img my-pi-image.img
           zip -j my-pi-image-${{ steps.create_release.outputs.id }} my-pi-image.img
 
       # Upload our completed image to the new release

@@ -34,6 +34,12 @@ echo 'dtoverlay=pi3-disable-bt' >> /piboot/config.txt
 echo 'dtoverlay=dwc2' >> /piboot/config.txt
 sed -i -e 's/ rootwait / rootwait modules-load=dwc2,g_ether /' /piboot/cmdline.txt
 
+# enable i2c
+echo 'dtparam=i2c_arm=on' >> /piboot/config.txt
+
+# enable serial port, but not login
+echo 'enable_uart=1' >> /piboot/config.txt
+
 umount /piboot
 
 #
@@ -53,5 +59,7 @@ install -o 0 -m 755 src/mac-hostname.sh /mnt/etc/
 install -o 0 -m 755 src/mac-hostname.service /mnt/etc/systemd/system/
 install -d -o 0 -m 755 /mnt/etc/systemd/system/network.target.wants
 ln -s /mnt/etc/systemd/system/mac-hostname.service /mnt/etc/systemd/system/network.target.wants/mac-hostname.service
+
+# 
 
 umount /mnt

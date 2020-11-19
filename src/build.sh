@@ -63,3 +63,5 @@ ln -s /mnt/etc/systemd/system/mac-hostname.service /mnt/etc/systemd/system/netwo
 # 
 
 umount /mnt
+
+ln *.img my-pi-image.img
